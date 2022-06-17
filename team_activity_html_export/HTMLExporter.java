@@ -16,35 +16,24 @@ public class HTMLExporter implements Table.Exporter
 							   int height,
 							   Iterator columnNames ) throws IOException
 
-	{	this.width = width;
-		out.write(tableName == null ? "<anonymous>" : tableName );
-		out.write("\n");
-		storeRow( columnNames ); // comma separated list of columns ids
-		// write table name
+	{
 		out.write("<tr>");
 		out.write(tableName);
 		out.write("</tr>");
-		// write table header
-		out.write("<tr>");
 		storeRow(columnNames);
-		out.write("</tr>");		
 	}
 
 	public void storeRow( Iterator data ) throws IOException {
 		int i = width;
 		out.write("<tr>");
-		out.write("<td>");
 		while (data.hasNext()) {
+			out.write("<td>");
 			Object datum = data.next();
 			if( datum != null )	
 				out.write( datum.toString() );
 
-			if( --i > 0 ) {
-				out.write("</td>");
-				out.write("<td>");
-			}
+			out.write("</td>");
 		}
-		out.write("</td>");
 		out.write("</tr>");
 	}
 
